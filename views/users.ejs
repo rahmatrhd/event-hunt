@@ -8,6 +8,7 @@
             User not found! :(
           </div>
         <% } else { %>
+          <h1>My Profile</h1>
 
           <table class="table table-striped">
             <tbody>
@@ -23,22 +24,29 @@
                 <td>Email</td>
                 <td><%= user.email %></td>
               </tr>
-              <tr>
-                <td colspan="2">
-                  <a class="btn btn-secondary" href="/users/edit/<%= user.id %>">Edit Profile</a>
-
-                  <a class="btn btn-secondary" href="/users/delete/<%= user.id %>">Delete Account</a>
-                </td>
-              </tr>
+                <tr>
+                  <td colspan="2">
+                    <a class="btn btn-primary" href="/users/add-interest">Add your Interest!</a>
+                    <a class="btn btn-secondary disabled" href="#">Edit Profile</a>
+                    <a class="btn btn-danger disabled" href="#">Delete Account</a>
+                  </td>
+                </tr>
             </tbody>
           </table>
-
-          
-
-
         <% } %>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col col-md-6">
+        <h1>My Events</h1>
+      </div>
+      <div class="col col-md-6">
+        <h1>Events I have to attend</h1>
+      </div>
+    </div>
+
+
   </div>
 
 <%- include layout/foot %>

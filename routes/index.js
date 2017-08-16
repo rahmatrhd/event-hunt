@@ -1,8 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var models = require('../models')
-var crypto = require('crypto')
-var getRecommendedEvents = require('../helpers/getRecommendedEvents')
+const express = require('express');
+const router = express.Router();
+const models = require('../models')
+const crypto = require('crypto')
+const getRecommendedEvents = require('../helpers/getRecommendedEvents')
+const randomSalt = require('../helpers/randomSalt')
+
 
 router.get('/', (req, res, next) => {
   if (req.session.hasOwnProperty('username')) //if loggedin
@@ -10,15 +12,16 @@ router.get('/', (req, res, next) => {
   else
     next()
 }, (req, res, next) => {
-  res.render('index', {
-    title: 'Express'
-  });
+  // res.render('index', {
+  //   title: 'Express'
+  // });
+  res.redirect('/login')
 });
 
 router.get('/dashboard', (req, res, next) => {
   if (!req.session.hasOwnProperty('username')) //if not loggedin
-  //   res.redirect('/')
-  // else
+    res.redirect('/')
+  else
     next()
 }, (req, res) => {
   models.Event.findAll()
@@ -32,6 +35,20 @@ router.get('/dashboard', (req, res, next) => {
   })
   .catch(err => {
     throw(err)
+  })
+})
+
+router.get('/login', (req, res, next) => {
+  if (req.session.hasOwnProperty('username'))
+    res.redirect('/')
+  else
+    next()
+}, (req, res) => {
+  res.render('login', {
+    title: 'Login',
+    session: req.session,
+    err: req.query.err,
+    good: req.query.good
   })
 })
 
@@ -49,9 +66,9 @@ router.post('/login', (req, res, next) => {
     if (user != null) {
       let inputPassword = crypto.createHmac('sha256', user.salt).update(req.body.password).digest('hex')
       if (inputPassword == user.password) {
+        req.session.UserId = user.id
         req.session.username = user.username
-        req.session.role = user.role
-
+        // console.log(user.id);
         res.redirect('/')
       } else
       res.redirect('/login?err=Password salah!')
@@ -63,13 +80,67 @@ router.post('/login', (req, res, next) => {
   })
 })
 
-router.post('/signup', (req, res) => {
-  models.User.create(req.body)
-  .then(() => {
-    res.redirect('/login?good=Silahkan Login')
+router.get('/signup', (req, res, next) => {
+  if (req.session.hasOwnProperty('username'))
+    res.redirect('/')
+  else
+    next()
+}, (req, res) => {
+  res.render('signup', {
+    title: 'Sign Up',
+    session: req.session,
+    err: req.query.err
   })
-  .catch(err => {
-    throw err
+})
+
+router.post('/signup', (req, res, next) => {
+  if (req.session.hasOwnProperty('username'))
+    res.redirect('/')
+  else
+    next()
+}, (req, res) => {
+  if (req.body.password == '' || req.body.repeatPassword == '')
+    res.redirect(`/signup?err=Password can't be empty!`)
+  else
+    models.User.findOne({where: {username: req.body.username}})
+    .then(result => {
+      if (result != null)
+        res.redirect('/signup?err=Username already taken!')
+      else {
+        let insertUser = () => {
+          let insert = {
+            full_name: req.body.full_name,
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password,
+            role: req.body.role,
+            salt: randomSalt(8)
+          }
+
+          models.User.create(insert)
+          .then(() => {
+            res.redirect('/login?good=Silahkan Login')
+          })
+          .catch(err => {
+            if(err.message == 'salt must be unique')
+              insertUser()
+            else
+              res.redirect(`/signup?err=${err.errors[0].message}`)
+          })
+        }
+        insertUser()
+      }
+    })
+})
+
+router.get('/logout', (req, res, next) => {
+  if (!req.session.hasOwnProperty('username'))
+    res.redirect('/')
+  else
+    next()
+}, (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/')
   })
 })
 

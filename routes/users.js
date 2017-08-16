@@ -2,10 +2,16 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 
-router.get('/:id', (req, res) => {
-  models.User.findById(req.params.id)
-  .then(user => {
+router.use((req, res, next) => {
+  if (!req.session.hasOwnProperty('username')) //if not loggedin
+    res.redirect('/')
+  else
+    next()
+})
 
+router.get('/', (req, res) => {
+  models.User.findById(req.session.UserId)
+  .then(user => {
     if (user == null)
       res.render('users', {
         title: 'User not found',
@@ -24,32 +30,57 @@ router.get('/:id', (req, res) => {
   })
 });
 
-router.get('/edit/:id',(req,res) => {
-  models.User.findbyid(req.params.id)
-    .then(users => {
-      res.render('edituser',{
-        title: 'Event List',
-        session:req.session,
-        users:users
-      })
+router.get('/add-interest', (req, res) => {
+  models.Category.findAll({
+    include: [{
+      model: models.Interest,
+      where: {UserId: req.session.UserId},
+      required: false,
+    }]
+  })
+  .then(categories => {
+    // res.send(categories)
+    res.render('add-interest', {
+      title: 'Add Interest',
+      categories: categories,
+      session: req.session
     })
-    .catch(err => {
-      throw err
-    })
+  })
+  .catch(err => {
+    throw err
+  })
 })
 
-router.get('/delete/:id',(req,res) => {
-  var id = req.params.id
-  model.User.destroy({
-    where: {id: id}
+router.post('/add-interest', (req, res) => {
+  // res.send(req.body)
+  models.Interest.destroy({where: {UserId: req.session.UserId}})
+  .then(() => {
+    let promises = req.body.categories.map(category => {
+      return new Promise((resolve, reject) => {
+        models.Interest.create({
+          UserId: req.session.UserId,
+          CategoryId: category
+        })
+        .then(() => {
+          resolve()
+        })
+        .catch(err => {
+          throw err
+        })
+      })
     })
-    .then(user => {
+
+    Promise.all(promises)
+    .then(() => {
       res.redirect('/users')
     })
     .catch(err => {
       throw err
     })
+  })
+  .catch(err => {
+    throw err
+  })
 })
-
 
 module.exports = router;

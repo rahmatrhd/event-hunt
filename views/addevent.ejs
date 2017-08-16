@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-add event
-  </body>
-</html>
+<%- include layout/head %>
+  <h1><%= title %></h1>
+  <p>Welcome to <%= title %></p>
+    <form action="/events" method="post">
+      <fieldset>
+        <legend>Personal information:</legend>
+        Tittle:<br>
+        <input type="text" name="title" placeholder="input your user title">
+        <br>
+        Description:<br>
+        <div>
+          <textarea name="description" rows="3"></textarea>
+        </div>
+        <br>
+        Place :<br>
+        <input type="text" name="place" placeholder="input your place">
+        <br>
+        Date Time:<br>
+        <input type="date" name="datetime" placeholder="input your date">
+        <br>
+        Category Id :<br>
+        <input type="text" name="CategoryId" placeholder="inp<br>ut your place">
+        <br>
+        UserId :<br>
+        <input type="text" name="UserId" placeholder="input your place">
+        <br><br>
+        <input type="submit" value="Submit">
+      </fieldset>
+    </form>
+<%- include layout/foot %>

@@ -1,9 +1,19 @@
 const express = require('express');
 const router = express.Router();
-// const model = require('../models')
+const models = require('../models')
 
 router.get('/',(req,res) => {
-  res.render('event')
+  models.Event.findall()
+  .then(events => {
+    res.render('event',{
+      title: 'Event List',
+      session: req.session,
+      events:events
+    })
+  })
+  .catch(err => {
+    throw err
+  })
 })
 
 router.get('/addevent',(req,res) => {
@@ -11,23 +21,13 @@ router.get('/addevent',(req,res) => {
   .then(events => {
     res.render('addevent', {
       title: 'Event List',
+      session:req.session,
       events: events
     })
   })
+  .catch(err => {
+    throw err
+  })
 })
-
-// router.post('/',(req,res) => {
-//   model.Event.create({
-//     title: req.body.tittle,
-//     description: req.body.description,
-//     place: req.body.place,
-//     datetime: new Date(),
-//     CategoryId:"",
-//     UserId: ""
-//   })
-//   .then(() => {
-//
-//   })
-// })
 
 module.exports = router;

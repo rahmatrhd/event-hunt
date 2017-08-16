@@ -1,37 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <style>
-    p {
-      color: red;
-      font-family: Helvetica, Arial, sans-serif;
-      text-align: center;
-      text-decoration-style: dashed;
-      }
-    </style>
-  </head>
-  <body>
-    <!DOCTYPE html>
-<html>
-<body>
-
-<form action="/login" method="post">
-  <fieldset>
-    <legend>Personal information:</legend>
-    Username:<br>
-    <input type="text" name="username" placeholder="input your user name">
-    <br>
-    Password:<br>
-    <input type="password" name="password" placeholder="input your password">
-    <br><br>
-    <!-- SubjectId:<br>
-    <input type="text" name="SubjectId" placeholder="input Subject ID">
-    <br><br> -->
-    <input type="submit" value="Submit">
-  </fieldset>
-</form>
-
-</body>
-</html>
+<%- include layout/head %>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+        <form action="/login" method="post">
+          <fieldset>
+            <legend>Personal information:</legend>
+            Username:<br>
+            <input type="text" name="username" placeholder="input your user name">
+            <br>
+            Password:<br>
+            <input type="password" name="password" placeholder="input your password">
+            <br><br>
+            <input type="submit" value="Submit">
+          </fieldset>
+        </form>
+<%- include layout/foot %>

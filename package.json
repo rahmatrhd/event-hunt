@@ -17,5 +17,18 @@
     "sequelize": "^4.5.0",
     "sequelize-cli": "^2.8.0",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rama841/event-hunt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rama841/event-hunt/issues"
+  },
+  "homepage": "https://github.com/rama841/event-hunt#readme",
+  "description": ""
 }

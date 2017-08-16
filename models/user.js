@@ -12,13 +12,13 @@ module.exports = function(sequelize, DataTypes) {
           msg: 'Email ga bener'
         }
       }
-    }
+    },
     username: {
       type: DataTypes.STRING,
       unique: {
         msg: 'Username udah kepake'
       }
-    }
+    },
     password: DataTypes.STRING,
     salt: DataTypes.STRING
   });

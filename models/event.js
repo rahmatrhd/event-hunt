@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Event.associate = models => {
     Event.belongsTo(models.Category)
-    Event.belongsTo(models.UserId)
+    Event.belongsTo(models.User)
     Event.belongsToMany(models.User, {through: models.User_Event})
   }
 

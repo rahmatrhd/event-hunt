@@ -3,7 +3,9 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col col-md-5">
-        <a class="btn btn-primary btn-lg btn-block" href="events/new">+ New Event</a>
+        <p>
+          <a class="btn btn-primary btn-lg btn-block" href="events/new">+ New Event</a>
+        </p>
       </div>
     </div>
 
@@ -20,13 +22,48 @@
 
         <div class="tab-content">
           <div class="tab-pane fade show active" id="recommended-events" role="tabpanel">
+            <div class="row">
+              <% recommendedEvents.forEach(event => { %>
+                <div class="col col-md-4 mt-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title"><%= event.title %></h4>
+                      <p class="card-text"><%= event.description %></p>
+                      <p class="card-text">
+                        <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
+                        <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
+                      </p>
 
-            <!-- iteration -->
-            recommendedEvents
-
+                    </div>
+                    <div class="card-footer text-right">
+                      <a class="btn btn-primary "href="events/<%= event.id %>">More...</a>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
           </div>
           <div class="tab-pane fade" id="all-events" role="tabpanel">
-            allEvents
+            <div class="row">
+              <% allEvents.forEach(event => { %>
+                <div class="col col-md-4 mt-3">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title"><%= event.title %></h4>
+                      <p class="card-text"><%= event.description %></p>
+                      <p class="card-text">
+                        <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
+                        <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
+                      </p>
+
+                    </div>
+                    <div class="card-footer text-right">
+                      <a class="btn btn-primary "href="events/<%= event.id %>">More...</a>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
           </div>
         </div>
       </div>

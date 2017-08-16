@@ -12,18 +12,16 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   models.User.findById(req.session.UserId)
   .then(user => {
-    if (user == null)
-      res.render('users', {
-        title: 'User not found',
-        user: user,
-        session: req.session
-      })
-    else
+    user.getMyEvents()
+    .then(myEvents => {
+      // res.send(events)
       res.render('users', {
         title: user.full_name,
         user: user,
+        myEvents: myEvents,
         session: req.session
       })
+    })
   })
   .catch(err => {
     throw err
@@ -72,6 +70,12 @@ router.post('/add-interest', (req, res) => {
 
     Promise.all(promises)
     .then(() => {
+      // res.send(asd)
+      return models.User.findById(req.session.UserId, {include: [{model: models.Category}]})
+    })
+    .then(user => {
+      // res.send(user);
+      req.session.interests = user.Categories.map(category => {return category.id})
       res.redirect('/users')
     })
     .catch(err => {

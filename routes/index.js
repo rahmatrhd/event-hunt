@@ -12,9 +12,6 @@ router.get('/', (req, res, next) => {
   else
     next()
 }, (req, res, next) => {
-  // res.render('index', {
-  //   title: 'Express'
-  // });
   res.redirect('/login')
 });
 
@@ -24,12 +21,17 @@ router.get('/dashboard', (req, res, next) => {
   else
     next()
 }, (req, res) => {
-  models.Event.findAll()
+  models.Event.findAll({
+    include: [{
+      model: models.Category
+    }]
+  })
   .then(events => {
+    // res.send(getRecommendedEvents(events, req.session.interests))
     res.render('dashboard', {
       title: 'Dashboard',
       allEvents: events,
-      recommendedEvents: getRecommendedEvents(events),
+      recommendedEvents: getRecommendedEvents(events, req.session.interests),
       session: req.session
     })
   })
@@ -59,7 +61,10 @@ router.post('/login', (req, res, next) => {
     next()
 }, (req, res) => {
   models.User.findOne({
-    where: {username: req.body.username}
+    where: {username: req.body.username},
+    include: [{
+      model: models.Category
+    }]
   })
   .then(user => {
     // console.log(req.session);
@@ -68,6 +73,7 @@ router.post('/login', (req, res, next) => {
       if (inputPassword == user.password) {
         req.session.UserId = user.id
         req.session.username = user.username
+        req.session.interests = user.Categories.map(category => {return category.id})
         // console.log(user.id);
         res.redirect('/')
       } else

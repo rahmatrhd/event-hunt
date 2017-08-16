@@ -1,22 +1,26 @@
 <%- include layout/head %>
   <h1><%= title %></h1>
   <p>Welcome to <%= title %></p>
-    <form action="/users/edituser/<%=users.id%>" method="post">
-      <fieldset>
-        <legend>Personal information:</legend>
-        Full Name:<br>
-        <input type="text" name="full_name" value ="">
-        <br>
-        Email:<br>
-        <input type="text" name="email" value="">
-        <br>
-        User name:<br>
-        <input type="text" name="username" value="">
-        <br>
-        Password:<br>
-        <input type="text" name="password" value="">
-        <br><br>
-        <input type="submit" value="Submit">
-      </fieldset>
-    </form>
+  <div class = "container">
+    <div class ="row">
+      <div class ="col col-md-6">
+        <form action="/users/edituser/<%=users.id%>" method="post">
+          <div class="form-group">
+            <label for="full_name">Full Name:</label>
+            <input type="text" name="full_name" value ="" class="form-control" id="full_name">
+          </div>
+          <div class ="form-group">
+            <label for="email">Email:</label>
+            <input type="text" name="email" value="" class="form-control" id="email">
+          </div>
+          <div class ="form-group">
+            <label for="username">User name:</label>
+            <input type="text" name="username" value="" class="form-control" id="username">
+          </div>
+          <div class ="form-group">
+            <label for="password">Password:</label>
+            <input type="text" name="password" value="" class="form-control" id="password">
+          </div>
+          <input type="submit" value="Submit">
+        </form>
 <%- include layout/foot %>

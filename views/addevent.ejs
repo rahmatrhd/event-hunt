@@ -1,30 +1,39 @@
 <%- include layout/head %>
   <h1><%= title %></h1>
   <p>Welcome to <%= title %></p>
-    <form action="/events" method="post">
-      <fieldset>
-        <legend>Personal information:</legend>
-        Tittle:<br>
-        <input type="text" name="title" placeholder="input your user title">
-        <br>
-        Description:<br>
-        <div>
-          <textarea name="description" rows="3"></textarea>
+    <div class = "container">
+      <div class = "row">
+        <div class = "col col-md-6">
+          <form action="/events" method="post">
+            <div class = "form-group">
+              <label for="title">Tittle:</label>
+              <input type="text" name="title" placeholder="input your user title" class="form-control" id="title">
+            </div>
+            <div class = "form-group">
+              <label for="description">Description:</label>
+              <div>
+                <textarea name="description" rows="3" class="form-control" id="description"></textarea>
+              </div>
+            </div>
+            <div class = "form-group">
+              <label for="place">Place :</label>
+              <input type="text" name="place" placeholder="input your place" class= "form-control" id="place">
+            </div>
+            <div class = "form-group">
+              <label for="datetime">Date Time:</label>
+              <input type="date" name="datetime" placeholder="input your date" class="form-control" id="datetime">
+            </div>
+            <div class = "form-group">
+              <label for="CategoryId">Category Id:<br>
+              <input type="text" name="CategoryId" placeholder="input your CategoryId" class="form-control" id="CategoryId">
+            </div>
+            <div class = "form-group">
+              <label for ="UserId">UserId :</label>
+              <input type="text" name="UserId" placeholder="input your place" class="form-control" id="UserId">
+            </div>
+            <input type="submit" value="Submit">
+          </form>
         </div>
-        <br>
-        Place :<br>
-        <input type="text" name="place" placeholder="input your place">
-        <br>
-        Date Time:<br>
-        <input type="date" name="datetime" placeholder="input your date">
-        <br>
-        Category Id :<br>
-        <input type="text" name="CategoryId" placeholder="inp<br>ut your place">
-        <br>
-        UserId :<br>
-        <input type="text" name="UserId" placeholder="input your place">
-        <br><br>
-        <input type="submit" value="Submit">
-      </fieldset>
-    </form>
+      </div>
+    </div>
 <%- include layout/foot %>

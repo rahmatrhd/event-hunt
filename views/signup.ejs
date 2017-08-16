@@ -1,24 +1,29 @@
 <%- include layout/head %>
-
   <h1><%= title %></h1>
   <p>Welcome to <%= title %></p>
-    <form action="/signup" method="post">
-      <fieldset>
-        <legend>Personal information:</legend>
-        Username:<br>
-        <input type="text" name="username" placeholder="input your user name">
-        <br>
-        Password:<br>
-        <input type="password" name="password" placeholder="input your password">
-        <br>
-        Full name:<br>
-        <input type="text" name="full_name" placeholder="input your full name">
-        <br>
-        Email:<br>
-        <input type="text" name="email" placeholder="input your email">
-        <br><br>
-        <input type="submit" value="Submit">
-      </fieldset>
-    </form>
-
+    <div class = "container">
+      <div class="row">
+        <div class="col col-md-6">
+          <form action="/signup" method="post">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" name="username" placeholder="input your user name" class="form-control" id ="username" >
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" name="password" placeholder="input your password" class="form-control" id ="password" >
+            </div>
+            <div class="form-group">
+              <label for="full_name">Full name:</label>
+              <input type="text" name="full_name" placeholder="input your full name" class="form-control" id = "full_name">
+            </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="text" name="email" placeholder="input your email" class="form-control" id = "email">
+            </div>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
 <%- include layout/foot %>

@@ -8,11 +8,10 @@ var session = require('express-session')
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var goal = require('./routes/goal');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var profile = require('./routes/profile');
-
+var event = require('./routes/event')
 var app = express();
 
 // view engine setup
@@ -35,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/goal',goal);
+app.use('/event',event);
 app.use('/login', login);
 app.use('/signup', signup);
 app.use('/profile',profile);

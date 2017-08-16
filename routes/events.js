@@ -9,7 +9,7 @@ router.use((req, res, next) => {
     next()
 })
 
-router.get('/new',(req,res) => {
+router.get('/new', (req,res) => {
   models.Event.findAll()
   .then(events => {
     res.render('events-new', {
@@ -21,6 +21,11 @@ router.get('/new',(req,res) => {
   .catch(err => {
     throw err
   })
+})
+
+router.post('/new', (req, res) => {
+  req.body.UserId = req.session.UserId
+
 })
 
 module.exports = router;

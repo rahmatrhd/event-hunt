@@ -1,11 +1,10 @@
 <%- include layout/head %>
   <h1><%= title %></h1>
-  <p>Welcome to <%= title %></p>
     <form action="/events" method="post">
       <fieldset>
         <legend>Personal information:</legend>
-        Tittle:<br>
-        <input type="text" name="title" placeholder="input your user title">
+        Title:<br>
+        <input type="text" name="title" placeholder="input your event title">
         <br>
         Description:<br>
         <div>
@@ -20,9 +19,6 @@
         <br>
         Category Id :<br>
         <input type="text" name="CategoryId" placeholder="inp<br>ut your place">
-        <br>
-        UserId :<br>
-        <input type="text" name="UserId" placeholder="input your place">
         <br><br>
         <input type="submit" value="Submit">
       </fieldset>

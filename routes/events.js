@@ -7,7 +7,13 @@ router.get('/',(req,res) => {
 })
 
 router.get('/addevent',(req,res) => {
-  res.render('addevent')
+  models.Event.findAll()
+  .then(events => {
+    res.render('addevent', {
+      title: 'Event List',
+      events: events
+    })
+  })
 })
 
 // router.post('/',(req,res) => {

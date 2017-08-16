@@ -1,16 +1,16 @@
 <%- include layout/head %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-        <form action="/login" method="post">
-          <fieldset>
-            <legend>Personal information:</legend>
-            Username:<br>
-            <input type="text" name="username" placeholder="input your user name">
-            <br>
-            Password:<br>
-            <input type="password" name="password" placeholder="input your password">
-            <br><br>
-            <input type="submit" value="Submit">
-          </fieldset>
-        </form>
+
+<form action="/login" method="post">
+  <fieldset>
+    <legend>Personal information:</legend>
+    Username:<br>
+    <input type="text" name="username" placeholder="input your user name">
+    <br>
+    Password:<br>
+    <input type="password" name="password" placeholder="input your password">
+    <br><br>
+    <input type="submit" value="Submit">
+  </fieldset>
+</form>
+
 <%- include layout/foot %>

@@ -1,0 +1,26 @@
+<%- include layout/head %>
+
+  <div class="container">
+    <div class="row">
+      <div class="col col-md-12">
+        <h1><%= title %></h1>
+        <form action="/users/add-interest" method="post">
+          <div class="form-group">
+            <% categories.forEach(category => { %>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="checkbox" name="categories" value=<%= category.id %> <%= category.Interests.length > 0 ? 'checked' : '' %>>
+                  <%= category.label %>
+                </label>
+              </div>
+            <% }) %>
+          </div>
+          <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Add Interest">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<%- include layout/foot %>

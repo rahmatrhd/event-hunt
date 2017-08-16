@@ -2,25 +2,18 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models')
 
-router.get('/',(req,res) => {
-  models.Event.findall()
-  .then(events => {
-    res.render('event',{
-      title: 'Event List',
-      session: req.session,
-      events:events
-    })
-  })
-  .catch(err => {
-    throw err
-  })
+router.use((req, res, next) => {
+  if (!req.session.hasOwnProperty('username')) //if not loggedin
+    res.redirect('/')
+  else
+    next()
 })
 
-router.get('/addevent',(req,res) => {
+router.get('/new',(req,res) => {
   models.Event.findAll()
   .then(events => {
-    res.render('addevent', {
-      title: 'Event List',
+    res.render('events-new', {
+      title: 'New Event',
       session:req.session,
       events: events
     })

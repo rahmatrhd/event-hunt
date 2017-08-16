@@ -12,9 +12,10 @@ router.get('/', (req, res, next) => {
   else
     next()
 }, (req, res, next) => {
-  res.render('index', {
-    title: 'Express'
-  });
+  // res.render('index', {
+  //   title: 'Express'
+  // });
+  res.redirect('/login')
 });
 
 router.get('/dashboard', (req, res, next) => {
@@ -65,8 +66,9 @@ router.post('/login', (req, res, next) => {
     if (user != null) {
       let inputPassword = crypto.createHmac('sha256', user.salt).update(req.body.password).digest('hex')
       if (inputPassword == user.password) {
+        req.session.UserId = user.id
         req.session.username = user.username
-
+        // console.log(user.id);
         res.redirect('/')
       } else
       res.redirect('/login?err=Password salah!')

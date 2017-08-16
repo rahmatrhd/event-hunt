@@ -1,7 +1,8 @@
-<<<<<<< HEAD
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+
+router.use
 
 router.get('/:id', (req, res) => {
   models.User.findById(req.params.id)
@@ -26,7 +27,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/edit/:id',(req,res) => {
-  models.User.findbyid(req.params.id)
+  models.User.findById(req.params.id)
     .then(users => {
       res.render('edituser',{
         title: 'Event List',
@@ -40,16 +41,13 @@ router.get('/edit/:id',(req,res) => {
 })
 
 router.get('/delete/:id',(req,res) => {
-  var id = req.params.id
-  model.User.destroy({
-    where: {id: id}
-    })
-    .then(user => {
-      res.redirect('/users')
-    })
-    .catch(err => {
-      throw err
-    })
+  model.User.destroy({where: {id: req.params.id}})
+  .then(user => {
+    res.redirect('/users')
+  })
+  .catch(err => {
+    throw err
+  })
 })
 
 

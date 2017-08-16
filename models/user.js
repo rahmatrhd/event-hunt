@@ -1,4 +1,6 @@
 'use strict';
+const crypto = require('crypto')
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     full_name: DataTypes.STRING,
@@ -20,7 +22,12 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     password: DataTypes.STRING,
-    salt: DataTypes.STRING
+    salt: {
+      type: DataTypes.STRING,
+      unique: {
+        msg: 'salt must be unique'
+      }
+    }
   });
 
   User.associate = models => {
@@ -28,6 +35,10 @@ module.exports = function(sequelize, DataTypes) {
     User.belongsToMany(models.Category, {through: models.Interest})
     User.hasMany(models.Event)
   }
+
+  User.beforeCreate(model => {
+    model.password = crypto.createHmac('sha256', model.salt).update(model.password).digest('hex');
+  })
 
   return User;
 };

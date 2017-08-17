@@ -14,6 +14,7 @@
 
   </head>
   <body class="pb-5">
+    <script type="text/javascript" src="/js/countdown.min.js"></script>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -31,11 +32,11 @@
             </li>
           <% } else { %>
             <li class="nav-item">
-              <a class="nav-link" href="/users">Hello, <%= session.username %>!</a>
+              <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/dashboard">Dashboard</a>
+              <a class="nav-link" href="/users">Profile</a>
             </li>
 
             <li class="nav-item">

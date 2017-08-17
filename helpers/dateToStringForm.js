@@ -1,8 +1,5 @@
 module.exports = string => {
-  let date = new Date(string)
-  let year = date.getFullYear()
-  let month = '0' + (date.getMonth() + 1 + '').slice(-2)
-  let day = date.getDate()
-
-  return `${year}-${month}-${day}`
+	let date = new Date(string)
+	date.setTime(date.getTime() + (7*60*60*1000))
+  return date.toISOString().split('.')[0]
 }

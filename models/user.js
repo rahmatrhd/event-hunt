@@ -31,9 +31,11 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   User.associate = models => {
+    User.hasMany(models.Event, {as: 'myEvents'})
     User.belongsToMany(models.Event, {through: models.User_Event})
     User.belongsToMany(models.Category, {through: models.Interest})
-    User.hasMany(models.Event, {as: 'myEvents'})
+    User.hasMany(models.Interest)
+    User.hasMany(models.User_Event)
   }
 
   User.beforeCreate(model => {

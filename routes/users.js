@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+const dateToStringShow = require('../helpers/dateToStringShow')
 
 router.use((req, res, next) => {
   if (!req.session.hasOwnProperty('username')) //if not loggedin
@@ -10,22 +11,38 @@ router.use((req, res, next) => {
 })
 
 router.get('/', (req, res) => {
-  models.User.findById(req.session.UserId)
-  .then(user => {
-    user.getMyEvents({
+  models.User.findById(req.session.UserId, {
+    include: [{
+      model: models.Event,
+      as: 'myEvents',
       include: [{
         model: models.Category
       }]
-    })
-    .then(myEvents => {
+    }, {
+      model: models.User_Event,
+      include: [{
+        model: models.Event,
+        include: [{
+          model: models.User
+        }]
+      }]
+    }]
+  })
+  .then(user => {
+    // user.getMyEvents({
+    //   include: [{
+    //     model: models.Category
+    //   }]
+    // })
+    // .then(myEvents => {
       // res.send(events)
       res.render('users', {
         title: user.full_name,
         user: user,
-        myEvents: myEvents,
-        session: req.session
+        session: req.session,
+        dateToStringShow: dateToStringShow
       })
-    })
+    // })
   })
   .catch(err => {
     throw err

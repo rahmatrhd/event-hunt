@@ -1,5 +1,4 @@
 <%- include layout/head %>
-
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="col col-md-5">
@@ -32,10 +31,9 @@
                       <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
                       <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
                     </p>
-
-                  </div>
-                  <div class="card-footer text-right">
-                    <a class="btn btn-primary "href="events/<%= event.id %>">More...</a>
+                    <div class="text-right">
+                      <a class="btn btn-primary" href="events/<%= event.id %>">More...</a>
+                    </div >
                   </div>
                 </div>
               <% }) %>
@@ -52,10 +50,9 @@
                       <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
                       <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
                     </p>
-
-                  </div>
-                  <div class="card-footer text-right">
-                    <a class="btn btn-primary "href="events/<%= event.id %>">More...</a>
+                    <div class="text-right">
+                      <a class="btn btn-primary "href="events/<%= event.id %>">More...</a>
+                    </div >
                   </div>
                 </div>
               <% }) %>
@@ -66,5 +63,5 @@
     </div>
 
   </div>
-
+ 
 <%- include layout/foot %>

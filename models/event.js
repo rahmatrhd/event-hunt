@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     Event.belongsTo(models.Category)
     Event.belongsTo(models.User)
     Event.belongsToMany(models.User, {through: models.User_Event})
+    Event.hasMany(models.User_Event)
   }
 
   return Event;

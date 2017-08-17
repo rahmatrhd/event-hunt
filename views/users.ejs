@@ -1,5 +1,4 @@
 <%- include layout/head %>
-
   <div class="container">
     <div class="row">
       <div class="col col-md-12">
@@ -34,13 +33,13 @@
     <div class="row">
       <div class="col col-md-6">
         <h1>My Events</h1>
-        <% myEvents.forEach(event => { %>
+        <% user.myEvents.forEach(event => { %>
           <div class="card mt-3">
             <div class="card-body">
               <h4 class="card-title"><%= event.title %></h4>
               <p class="card-text"><%= event.description %></p>
               <p class="card-text">
-                <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
+                <small class="text-muted"><%= dateToStringShow(event.datetime) %></small>
                 <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
               </p>
 
@@ -54,6 +53,26 @@
       </div>
       <div class="col col-md-6">
         <h1>Events I have to attend</h1>
+          <div class="list-group">
+          <% user.User_Events.forEach(event => { %>
+            <a href="/events/<%= event.Event.id %>" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><%= event.Event.title %></h5>
+                <small><%= dateToStringShow(event.Event.datetime) %></small>
+              </div>
+              <p id="countdown<%= event.Event.id %>" class="mb-1"></p>
+              <small class="text-muted">Event by: <%= event.Event.User.full_name %></small>
+            </a>
+            <script type="text/javascript">
+              var timerId = countdown(
+                new Date('<%= event.Event.datetime %>'),
+                function(ts) {
+                  document.getElementById('countdown<%= event.Event.id %>').innerHTML = ts.toHTML("strong");
+                },
+                countdown.MONTHS|countdown.DAYS|countdown.HOURS);
+            </script>
+          <% }) %>
+        </div>
       </div>
     </div>
 

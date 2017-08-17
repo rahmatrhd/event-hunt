@@ -12,7 +12,11 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   models.User.findById(req.session.UserId)
   .then(user => {
-    user.getMyEvents()
+    user.getMyEvents({
+      include: [{
+        model: models.Category
+      }]
+    })
     .then(myEvents => {
       // res.send(events)
       res.render('users', {
@@ -53,6 +57,10 @@ router.post('/add-interest', (req, res) => {
   // res.send(req.body)
   models.Interest.destroy({where: {UserId: req.session.UserId}})
   .then(() => {
+    // res.send(req.body)
+    if (!Array.isArray(req.body.categories))
+      req.body.categories = [req.body.categories]
+
     let promises = req.body.categories.map(category => {
       return new Promise((resolve, reject) => {
         models.Interest.create({

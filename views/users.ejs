@@ -41,7 +41,7 @@
               <p class="card-text"><%= event.description %></p>
               <p class="card-text">
                 <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
-                <span class="badge badge-secondary"><%= event.CategoryId %></span>
+                <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
               </p>
 
             </div>

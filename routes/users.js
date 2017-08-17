@@ -26,7 +26,11 @@ router.get('/', (req, res) => {
           model: models.User
         }]
       }]
-    }]
+    }],
+    order: [
+      [{model: models.Event, as: 'myEvents'}, 'datetime', 'ASC'],
+      [models.User_Event, models.Event, 'datetime', 'ASC']
+    ]
   })
   .then(user => {
     // user.getMyEvents({
@@ -55,7 +59,8 @@ router.get('/add-interest', (req, res) => {
       model: models.Interest,
       where: {UserId: req.session.UserId},
       required: false,
-    }]
+    }],
+    order: [['label', 'ASC']]
   })
   .then(categories => {
     // res.send(categories)

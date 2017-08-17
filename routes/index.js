@@ -4,7 +4,7 @@ const models = require('../models')
 const crypto = require('crypto')
 const getRecommendedEvents = require('../helpers/getRecommendedEvents')
 const randomSalt = require('../helpers/randomSalt')
-
+const dateToStringShow = require('../helpers/dateToStringShow')
 
 router.get('/', (req, res, next) => {
   if (req.session.hasOwnProperty('username')) //if loggedin
@@ -22,9 +22,11 @@ router.get('/dashboard', (req, res, next) => {
     next()
 }, (req, res) => {
   models.Event.findAll({
+    where: {datetime: {$gte: new Date()}},
     include: [{
       model: models.Category
-    }]
+    }],
+    order: [['datetime', 'DESC']]
   })
   .then(events => {
     // res.send(getRecommendedEvents(events, req.session.interests))
@@ -32,7 +34,8 @@ router.get('/dashboard', (req, res, next) => {
       title: 'Dashboard',
       allEvents: events,
       recommendedEvents: getRecommendedEvents(events, req.session.interests),
-      session: req.session
+      session: req.session,
+      dateToStringShow: dateToStringShow
     })
   })
   .catch(err => {

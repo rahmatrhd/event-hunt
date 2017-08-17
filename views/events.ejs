@@ -5,7 +5,12 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h1><%= title %></h1>
+            <h1>
+              <%= title %>
+              <% if (new Date(event.datetime) < new Date()) { %>  
+                <span class="badge badge-danger">The event is over</span>
+              <% } %>
+            </h1>
           </div>
           <div class="card-body">
             <div class="row">
@@ -40,10 +45,10 @@
         <form action="/events/<%= event.id %>" method="post">
           <% if (participantsId.indexOf(session.UserId) >= 0) { %>
             <input type="hidden" name="type" value="cancel">
-            <input type="submit" class="btn btn-danger btn-lg btn-block" value="CANCEL">
+            <input type="submit" class="btn btn-danger btn-lg btn-block" value="CANCEL"  <%= new Date(event.datetime) < new Date() ? 'disabled' : '' %>>
           <% } else { %>
             <input type="hidden" name="type" value="participate">
-            <input type="submit" class="btn btn-primary btn-lg btn-block" value="PARTICIPATE">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="PARTICIPATE" <%= new Date(event.datetime) < new Date() ? 'disabled' : '' %>>
           <% } %>
         </form>
       </div>

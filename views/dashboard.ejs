@@ -25,14 +25,16 @@
               <% recommendedEvents.forEach(event => { %>
                 <div class="card mt-2">
                   <div class="card-body">
-                    <h4 class="card-title"><%= event.title %></h4>
+                    <h4 class="card-title">
+                      <%= event.title %>
+                    </h4>
                     <p class="card-text"><%= event.description %></p>
                     <p class="card-text">
-                      <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
+                      <small class="text-muted"><%= dateToStringShow(event.datetime) %></small>
                       <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
                     </p>
                     <div class="text-right">
-                      <a class="btn btn-primary" href="events/<%= event.id %>">More...</a>
+                      <a class="btn btn-light" href="events/<%= event.id %>">More...</a>
                     </div >
                   </div>
                 </div>
@@ -44,14 +46,16 @@
               <% allEvents.forEach(event => { %>
                 <div class="card mt-2">
                   <div class="card-body">
-                    <h4 class="card-title"><%= event.title %></h4>
+                    <h4 class="card-title">
+                      <%= event.title %>
+                    </h4>
                     <p class="card-text"><%= event.description %></p>
                     <p class="card-text">
-                      <small class="text-muted"><%= event.datetime.toDateString() %>, <%= event.datetime.toTimeString() %></small><br>
+                      <small class="text-muted"><%= dateToStringShow(event.datetime) %></small>
                       <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
                     </p>
                     <div class="text-right">
-                      <a class="btn btn-primary "href="events/<%= event.id %>">More...</a>
+                      <a class="btn btn-light "href="events/<%= event.id %>">More...</a>
                     </div >
                   </div>
                 </div>

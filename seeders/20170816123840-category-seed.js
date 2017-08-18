@@ -52,6 +52,22 @@ module.exports = {
       label: 'farming',
       createdAt: new Date(),
       updatedAt: new Date()
+    }, {
+      label: 'politic',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      label: 'photography',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      label: 'animal',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }, {
+      label: 'education',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 

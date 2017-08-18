@@ -5,6 +5,7 @@ const crypto = require('crypto')
 const getRecommendedEvents = require('../helpers/getRecommendedEvents')
 const randomSalt = require('../helpers/randomSalt')
 const dateToStringShow = require('../helpers/dateToStringShow')
+const shortDesc = require('../helpers/shortDesc')
 
 router.get('/', (req, res, next) => {
   if (req.session.hasOwnProperty('username')) //if loggedin
@@ -39,7 +40,8 @@ router.get('/dashboard', (req, res, next) => {
       allEvents: events,
       recommendedEvents: getRecommendedEvents(events, req.session.interests),
       session: req.session,
-      dateToStringShow: dateToStringShow
+      dateToStringShow: dateToStringShow,
+      shortDesc: shortDesc
     })
   })
   .catch(err => {

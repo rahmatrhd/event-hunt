@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 const dateToStringShow = require('../helpers/dateToStringShow')
+const shortDesc = require('../helpers/shortDesc')
 
 router.use((req, res, next) => {
   if (!req.session.hasOwnProperty('username')) //if not loggedin
@@ -44,7 +45,8 @@ router.get('/', (req, res) => {
         title: user.full_name,
         user: user,
         session: req.session,
-        dateToStringShow: dateToStringShow
+        dateToStringShow: dateToStringShow,
+        shortDesc: shortDesc
       })
     // })
   })
@@ -90,7 +92,8 @@ router.get('/:id', (req, res) => {
           title: user.full_name,
           user: user,
           session: req.session,
-          dateToStringShow: dateToStringShow
+          dateToStringShow: dateToStringShow,
+          shortDesc: shortDesc
         })
       // })
     })

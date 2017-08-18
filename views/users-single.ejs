@@ -31,7 +31,7 @@
                   <span class="badge badge-danger">The event is over</span>
                 <% } %>
               </h4>
-              <p class="card-text"><%= event.description %></p>
+              <p class="card-text"><%= shortDesc(event.description) %></p>
               <p class="card-text">
                 <small class="text-muted"><%= dateToStringShow(event.datetime) %></small>
                 <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>

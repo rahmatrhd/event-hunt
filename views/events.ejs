@@ -7,7 +7,7 @@
           <div class="card-header">
             <h1>
               <%= title %>
-              <% if (new Date(event.datetime) < new Date()) { %>  
+              <% if (new Date(event.datetime) < new Date()) { %>
                 <span class="badge badge-danger">The event is over</span>
               <% } %>
             </h1>
@@ -64,7 +64,7 @@
             <% event.User_Events.forEach((user, index) => { %>
               <li class="list-group-item">
                 <%= index + 1 %>.
-                <strong><%= user.User.full_name %></strong>
+                <a href="/users/<%= user.User.id %>"><strong><%= user.User.full_name %></strong></a>
                 <small class="text-muted">
                   Participated at <%= dateToStringShow(new Date(user.createdAt)) %>
                 </small>

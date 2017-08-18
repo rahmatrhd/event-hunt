@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col col-md-12">
-        <h1>My Profile</h1>
+        <h1>Their Profile</h1>
 
         <table class="table table-striped">
           <tbody>
@@ -14,17 +14,6 @@
               <td>Username</td>
               <td><%= user.username %></td>
             </tr>
-            <tr>
-              <td>Email</td>
-              <td><%= user.email %></td>
-            </tr>
-              <tr>
-                <td colspan="2">
-                  <a class="btn btn-primary" href="/users/add-interest">Add your Interest!</a>
-                  <a class="btn btn-secondary disabled" href="#">Edit Profile</a>
-                  <a class="btn btn-danger disabled" href="#">Delete Account</a>
-                </td>
-              </tr>
           </tbody>
         </table>
       </div>
@@ -32,7 +21,7 @@
 
     <div class="row">
       <div class="col col-md-6">
-        <h1>My Events</h1>
+        <h1>Their Events</h1>
         <% user.myEvents.forEach(event => { %>
           <div class="card mt-3">
             <div class="card-body <%= new Date(event.datetime) < new Date() ? 'bg-dark text-white' : '' %>">
@@ -47,17 +36,15 @@
                 <small class="text-muted"><%= dateToStringShow(event.datetime) %></small>
                 <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
               </p>
-
-            </div>
-            <div class="card-footer text-right <%= new Date(event.datetime) < new Date() ? 'bg-dark text-white' : '' %>">
-              <a class="btn btn-secondary" href="/events/edit/<%= event.id %>">Edit</a>
-              <a class="btn btn-danger" href="/events/delete/<%= event.id %>">Delete</a>
+              <div class="text-right">
+                <a class="btn btn-light" href="/events/<%= event.id %>">More...</a>
+              </div>
             </div>
           </div>
         <% }) %>
       </div>
       <div class="col col-md-6">
-        <h1>My Next Events</h1>
+        <h1>Their Next Events</h1>
           <div class="list-group mt-3">
           <% user.User_Events.forEach(event => { %>
             <a href="/events/<%= event.Event.id %>" class="list-group-item list-group-item-action flex-column align-items-start">

@@ -53,6 +53,52 @@ router.get('/', (req, res) => {
   })
 });
 
+router.get('/:id', (req, res) => {
+  if (req.params.id == req.session.UserId)
+    res.redirect('/users')
+  else
+    models.User.findById(req.params.id, {
+      include: [{
+        model: models.Event,
+        as: 'myEvents',
+        include: [{
+          model: models.Category
+        }]
+      }, {
+        model: models.User_Event,
+        include: [{
+          model: models.Event,
+          include: [{
+            model: models.User
+          }]
+        }]
+      }],
+      order: [
+        [{model: models.Event, as: 'myEvents'}, 'datetime', 'ASC'],
+        [models.User_Event, models.Event, 'datetime', 'ASC']
+      ]
+    })
+    .then(user => {
+      // user.getMyEvents({
+      //   include: [{
+      //     model: models.Category
+      //   }]
+      // })
+      // .then(myEvents => {
+        // res.send(events)
+        res.render('users-single', {
+          title: user.full_name,
+          user: user,
+          session: req.session,
+          dateToStringShow: dateToStringShow
+        })
+      // })
+    })
+    .catch(err => {
+      throw err
+    })
+})
+
 router.get('/add-interest', (req, res) => {
   models.Category.findAll({
     include: [{

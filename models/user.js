@@ -3,7 +3,13 @@ const crypto = require('crypto')
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
-    full_name: DataTypes.STRING,
+    full_name: {
+      type: DataTypes.STRING,
+      allowNull: {
+          args: false,
+          msg: 'Nama tidak boleh kosong'
+      }
+    },
     email: {
       type: DataTypes.STRING,
       unique: {
@@ -19,6 +25,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       unique: {
         msg: 'Username udah kepake'
+      },
+      allowNull: {
+          args: false,
+          msg: 'Username tidak boleh kosong'
       }
     },
     password: DataTypes.STRING,

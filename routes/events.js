@@ -21,7 +21,8 @@ router.get('/new', (req, res) => {
         title: 'New Event',
         session: req.session,
         combobox: categories,
-        events: events
+        events: events,
+        err: req.query.err
       })
     })
     .catch(err => {
@@ -37,13 +38,16 @@ router.post('/new', (req, res) => {
   // res.send([new Date(req.body.datetime), dateToWIB(new Date(req.body.datetime)), new Date(req.body.datetime).getUTCHours(), new Date(req.body.datetime).getHours()])
   req.body.UserId = req.session.UserId
   req.body.datetime = dateToDatabase(new Date(req.body.datetime))
-  models.Event.create(req.body)
-  .then(() => {
-    res.redirect('/dashboard')
-  })
-  .catch(err => {
-    throw err
-  })
+  if (req.body.datetime >= new Date())
+    models.Event.create(req.body)
+    .then(() => {
+      res.redirect('/dashboard')
+    })
+    .catch(err => {
+      throw err
+    })
+  else
+    res.redirect('/events/new?err=Invalid Date')
 })
 
 

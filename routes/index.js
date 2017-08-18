@@ -12,6 +12,10 @@ router.get('/', (req, res, next) => {
   else
     next()
 }, (req, res, next) => {
+  res.render('index', {
+    title: 'Event Hunt',
+    session: req.session
+  })
   res.redirect('/login')
 });
 
@@ -122,7 +126,6 @@ router.post('/signup', (req, res, next) => {
             email: req.body.email,
             username: req.body.username,
             password: req.body.password,
-            role: req.body.role,
             salt: randomSalt(8)
           }
 

@@ -3,10 +3,15 @@
       <div class = "row justify-content-center">
         <div class = "col col-md-6">
           <h1><%= title %></h1>
+          <% if (err) { %>
+            <div class="alert alert-danger">
+              <%= err %>
+            </div>
+          <% } %>
           <form action="/events/new" method="post">
             <div class = "form-group">
               <label for="title">Tittle:</label>
-              <input type="text" name="title" placeholder="input event title" class="form-control" id="title">
+              <input type="text" name="title" placeholder="input event title" class="form-control" id="title" required>
             </div>
             <div class="form-group">
               <label for="description">Description:</label>
@@ -16,15 +21,15 @@
             </div>
             <div class="form-group">
               <label for="place">Place :</label>
-              <input type="text" name="place" placeholder="input your place" class= "form-control" id="place">
+              <input type="text" name="place" placeholder="input your place" class= "form-control" id="place" required>
             </div>
             <div class="form-group">
               <label for="datetime">Date Time:</label>
-              <input type="datetime-local" name="datetime" placeholder="input your date" class="form-control" id="datetime">
+              <input type="datetime-local" name="datetime" placeholder="input your date" class="form-control" id="datetime" required>
             </div>
             <div class="form-group">
               <label for="CategoryId">Pick a Category:</label>
-              <select class="form-control" name="CategoryId" id="CategoryId">
+              <select class="form-control" name="CategoryId" id="CategoryId" required>
                 <% combobox.forEach(category => { %>
                   <option value=<%= category.id %>><%= category.label %></option>
                 <% }) %>

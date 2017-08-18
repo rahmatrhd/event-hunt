@@ -1,7 +1,7 @@
 module.exports = string => {
 	let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   let date = new Date(string)
-	date.setTime(date.getTime() - (7*60*60*1000))
+	// date.setTime(date.getTime() - (7*60*60*1000))
 
   let year = date.getFullYear()
   let month = months[date.getMonth()]

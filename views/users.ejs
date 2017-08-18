@@ -18,6 +18,10 @@
               <td>Email</td>
               <td><%= user.email %></td>
             </tr>
+            <tr>
+              <td>Interest</td>
+              <td><%= user.Categories.map(category => {return category.label}).join(', ') %></td>
+            </tr>
               <tr>
                 <td colspan="2">
                   <a class="btn btn-primary" href="/users/add-interest">Add your Interest!</a>

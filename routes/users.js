@@ -14,6 +14,8 @@ router.use((req, res, next) => {
 router.get('/', (req, res) => {
   models.User.findById(req.session.UserId, {
     include: [{
+      model: models.Category
+    }, {
       model: models.Event,
       as: 'myEvents',
       include: [{
@@ -29,6 +31,7 @@ router.get('/', (req, res) => {
       }]
     }],
     order: [
+      [models.Category, 'label', 'ASC'],
       [{model: models.Event, as: 'myEvents'}, 'datetime', 'ASC'],
       [models.User_Event, models.Event, 'datetime', 'ASC']
     ]
@@ -54,53 +57,6 @@ router.get('/', (req, res) => {
     throw err
   })
 });
-
-router.get('/:id', (req, res) => {
-  if (req.params.id == req.session.UserId)
-    res.redirect('/users')
-  else
-    models.User.findById(req.params.id, {
-      include: [{
-        model: models.Event,
-        as: 'myEvents',
-        include: [{
-          model: models.Category
-        }]
-      }, {
-        model: models.User_Event,
-        include: [{
-          model: models.Event,
-          include: [{
-            model: models.User
-          }]
-        }]
-      }],
-      order: [
-        [{model: models.Event, as: 'myEvents'}, 'datetime', 'ASC'],
-        [models.User_Event, models.Event, 'datetime', 'ASC']
-      ]
-    })
-    .then(user => {
-      // user.getMyEvents({
-      //   include: [{
-      //     model: models.Category
-      //   }]
-      // })
-      // .then(myEvents => {
-        // res.send(events)
-        res.render('users-single', {
-          title: user.full_name,
-          user: user,
-          session: req.session,
-          dateToStringShow: dateToStringShow,
-          shortDesc: shortDesc
-        })
-      // })
-    })
-    .catch(err => {
-      throw err
-    })
-})
 
 router.get('/add-interest', (req, res) => {
   models.Category.findAll({
@@ -164,6 +120,56 @@ router.post('/add-interest', (req, res) => {
   .catch(err => {
     throw err
   })
+})
+
+router.get('/:id', (req, res) => {
+  if (req.params.id == req.session.UserId)
+    res.redirect('/users')
+  else
+    models.User.findById(req.params.id, {
+      include: [{
+        model: models.Category
+      }, {
+        model: models.Event,
+        as: 'myEvents',
+        include: [{
+          model: models.Category
+        }]
+      }, {
+        model: models.User_Event,
+        include: [{
+          model: models.Event,
+          include: [{
+            model: models.User
+          }]
+        }]
+      }],
+      order: [
+        [models.Category, 'label', 'ASC'],
+        [{model: models.Event, as: 'myEvents'}, 'datetime', 'ASC'],
+        [models.User_Event, models.Event, 'datetime', 'ASC']
+      ]
+    })
+    .then(user => {
+      // user.getMyEvents({
+      //   include: [{
+      //     model: models.Category
+      //   }]
+      // })
+      // .then(myEvents => {
+        // res.send(events)
+        res.render('users-single', {
+          title: user.full_name,
+          user: user,
+          session: req.session,
+          dateToStringShow: dateToStringShow,
+          shortDesc: shortDesc
+        })
+      // })
+    })
+    .catch(err => {
+      throw err
+    })
 })
 
 module.exports = router;

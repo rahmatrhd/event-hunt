@@ -30,7 +30,7 @@
                     Category: <span class="badge <%= session.interests.indexOf(event.Category.id) >= 0 ? 'badge-primary' : 'badge-secondary'%>"><%= event.Category.label %></span>
                   </li>
                   <li class="list-group-item">
-                    Created by: <%= event.User.full_name %>
+                    Created by: <a href="/users/<%= event.User.id %>"><%= event.User.full_name %></a>
                   </li>
                 </ul>
               </div>

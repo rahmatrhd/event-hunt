@@ -14,6 +14,10 @@
               <td>Username</td>
               <td><%= user.username %></td>
             </tr>
+            <tr>
+              <td>Interest</td>
+              <td><%= user.Categories.map(category => {return category.label}).join(', ') %></td>
+            </tr>
           </tbody>
         </table>
       </div>
